@@ -24,8 +24,48 @@ public class VendorPerformanceScore {
         return id;
     }
 
-    public get() {
-        return ;
+    public String getVendor() {
+        return vendor;
+    }
+
+    public Double getOnTimePercentage() {
+        return onTimePercentage;
+    }
+
+    public Double getQualityCompliancePercentage() {
+        return qualityCompliancePercentage;
+    }
+
+    public Double getOverallScore() {
+        return overallScore;
+    }
+
+    public Timestamp getCalculatedAt() {
+        return calculatedAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public void setOnTimePercentage(Double onTimePercentage) {
+        this.onTimePercentage = onTimePercentage;
+    }
+
+    public void setQualityCompliancePercentage(Double qualityCompliancePercentage) {
+        this.qualityCompliancePercentage = qualityCompliancePercentage;
+    }
+
+    public void setOverallScore(Double overallScore) {
+        this.overallScore = overallScore;
+    }
+
+    public void setCalculatedAt(Timestamp calculatedAt) {
+        this.calculatedAt = calculatedAt;
     }
 }
 
