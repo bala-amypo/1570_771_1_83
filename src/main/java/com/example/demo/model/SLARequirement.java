@@ -46,23 +46,23 @@ public class SLARequirement() {
         this.id = id;
     }
 
-    public void setRequirementName(String id) {
-        this.id = id;
+    public void setRequirementName(String requirementName) {
+        this.requirementName = requirementName;
     }
 
-    public void setDescription(String id) {
-        this.id = id;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setMaxDeliveryDays(Integer id) {
-        this.id = id;
+    public void setMaxDeliveryDays(Integer maxDeliveryDays) {
+        this.maxDeliveryDays = maxDeliveryDays;
     }
 
-    public void setMinQualityScore(Double id) {
-        this.id = id;
+    public void setMinQualityScore(Double minQualityScore) {
+        this.minQualityScore = minQualityScore;
     }
 
-    public void setActive(Boolean id) {
-        this.id = id;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
