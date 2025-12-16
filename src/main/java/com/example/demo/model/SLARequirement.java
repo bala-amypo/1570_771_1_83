@@ -22,23 +22,47 @@ public class SLARequirement() {
         return id;
     }
 
-    public String getId() {
-        return id;
+    public String getRequirementName() {
+        return requirementName;
     }
 
-    public Integer getId() {
-        return id;
+    public String getDescription() {
+        return description;
     }
 
-    public Double getId() {
-        return id;
+    public Integer getMaxDeliveryDays() {
+        return maxDeliveryDays;
     }
 
-    public g getId() {
-        return id;
+    public Double getMinQualityScore() {
+        return minQualityScore;
     }
 
-    public Long getId() {
-        return id;
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setRequirementName(String id) {
+        this.id = id;
+    }
+
+    public void setDescription(String id) {
+        this.id = id;
+    }
+
+    public void setMaxDeliveryDays(Integer id) {
+        this.id = id;
+    }
+
+    public void setMinQualityScore(Double id) {
+        this.id = id;
+    }
+
+    public void setActive(Boolean id) {
+        this.id = id;
     }
 }
