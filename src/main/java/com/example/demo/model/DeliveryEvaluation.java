@@ -56,5 +56,35 @@ public class DeliveryEvaluation() {
         return meetsQualityTarget;
     }
 
-    public void 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public void setSlaRequirement(String slaRequirement) {
+        this.slaRequirement = slaRequirement;
+    }
+
+    public void setActualDeliveryDays(Integer actualDeliveryDays) {
+        this.setActualDeliveryDays = setActualDeliveryDays;
+    }
+
+    public void setQualityScore(Double qualityScore) {
+        this.qualityScore = qualityScore;
+    }
+
+    public void setEvaluationDate(Date evaluationDate) {
+        this.id = id;
+    }
+
+    public void setMeetsDeliveryTarget(Boolean meetsDeliveryTarget) {
+        this.id = id;
+    }
+
+    public void setMeetsQualityTarget(Boolean meetsQualityTarget) {
+        this.id = id;
+    }
 }
