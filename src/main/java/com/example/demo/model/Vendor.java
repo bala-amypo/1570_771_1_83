@@ -53,4 +53,28 @@ public class Vendor {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setId(Boolean id) {
+        this.id = id;
+    }
+
+    public void setId(Timestamp id) {
+        this.id = id;
+    }
+
+    public void setId(Timestamp id) {
+        this.id = id;
+    }
 }
