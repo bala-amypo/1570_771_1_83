@@ -54,27 +54,27 @@ public class Vendor {
         this.id = id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
-    public void setId(Boolean id) {
-        this.id = id;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
-    public void setId(Timestamp id) {
-        this.id = id;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setId(Timestamp id) {
-        this.id = id;
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
