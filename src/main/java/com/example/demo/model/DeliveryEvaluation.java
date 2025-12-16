@@ -77,14 +77,14 @@ public class DeliveryEvaluation() {
     }
 
     public void setEvaluationDate(Date evaluationDate) {
-        this.id = id;
+        this.evaluationDate = evaluationDate;
     }
 
     public void setMeetsDeliveryTarget(Boolean meetsDeliveryTarget) {
-        this.id = id;
+        this.meetsDeliveryTarget = meetsDeliveryTarget;
     }
 
     public void setMeetsQualityTarget(Boolean meetsQualityTarget) {
-        this.id = id;
+        this.meetsQualityTarget = meetsQualityTarget;
     }
 }
