@@ -40,19 +40,19 @@ public class VendorTier {
         this.id = id;
     }
 
-    public void set() {
-        this. = ;
+    public void setTierName(String tierName) {
+        this.tierName = tierName;
     }
 
-    public void set() {
-        this. = ;
+    public void setMinScoreThreshold(Double minScoreThreshold) {
+        this.minScoreThreshold = minScoreThreshold;
     }
 
-    public void set() {
-        this. = ;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void set() {
-        this. = ;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
