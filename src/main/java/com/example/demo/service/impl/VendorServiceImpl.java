@@ -17,9 +17,6 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public Vendor createVendor(Vendor vendor) {
-        if(vendorRepository.existsByName(vendor.getName()).isPresent()) {
-            throw new RuntimeException("Name already in use!");
-        }
         return vendorRepository.save(vendor);
     }
 
