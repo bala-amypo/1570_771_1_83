@@ -2,13 +2,35 @@ package com.example.demo.model;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name="vendor")
+
 public class Vendor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @Column(unique = true)
     private String name;
+    @Email
+    @NotBlank
     private String contactEmail;
+    @NotBlank
     private String contactPhone;
+    @NotBlank
     private Boolean active;
+    @NotBlank
     private Timestamp createdAt;
+    @NotBlank
     private Timestamp updatedAt;
 
     public Vendor() {}
