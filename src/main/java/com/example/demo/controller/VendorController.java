@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Vendor;
 import com.example.demo.service.VendorService;
 
-import jakarta.validation.Valid;
-
 @RestController
 @RequestMapping("/api/vendors")
 public class VendorController {
@@ -24,13 +22,9 @@ public class VendorController {
     VendorService vendorService;
 
     @PostMapping
-    public ResponseEntity<Vendor> createAll(@Valid @RequestBody Vendor vendor) {
-        try {
-            Vendor vnd=vendorService.createVendor(vendor);
-            return ResponseEntity.status(201).body(vnd);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(400).build();
-        }
+    public ResponseEntity<Vendor> createAll(@RequestBody Vendor vendor) {
+        Vendor vnd=vendorService.createVendor(vendor);
+        return ResponseEntity.status(201).body(vnd);
     }
     
     @PutMapping("/{id}")
