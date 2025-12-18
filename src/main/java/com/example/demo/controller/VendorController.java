@@ -47,14 +47,4 @@ public class VendorController {
     public List<Vendor> getAll() {
         return vendorService.getAllVendors();
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<String> putAlll(int id, @RequestBody Vendor vendor) {
-        if(vendorService.deactivateVendor(id, vendor)!=null) {
-            return ResponseEntity.status(201).body("Successful");
-        }
-        else {
-            return ResponseEntity.status(404).build();
-        }
-    }
 }
