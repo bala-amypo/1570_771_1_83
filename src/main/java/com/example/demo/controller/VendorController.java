@@ -19,34 +19,53 @@ import com.example.demo.service.VendorService;
 @RestController
 @RequestMapping("/api/vendors")
 public class VendorController {
-    @Autowired
-    VendorService vendorService;
+    private final VendorService vendorService;
 
+    public VendorController(VendorService vendorService) {
+        this.vendorService = vendorService;
+    }
     @PostMapping
     public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
-        return new ResponseEntity<>(vendorService.createVendor(vendor), HttpStatus.CREATED);
+        Vendor v = vendorService.createVendor(vendor);
+        return ResponseEntity.status(201).body(v);
     }
-    
+
     @PutMapping("/{id}")
     public ResponseEntity<Vendor> updateVendor(
             @PathVariable Long id,
             @RequestBody Vendor vendor) {
-        return ResponseEntity.ok(vendorService.updateVendor(id, vendor));
+
+        Vendor updatedVendor = vendorService.updateVendor(id, vendor);
+        if (updatedVendor != null) {
+            return ResponseEntity.status(200).body(updatedVendor);
+        } else {
+            return ResponseEntity.status(404).build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Vendor> getVendorById(@PathVariable Long id) {
-        return ResponseEntity.ok(vendorService.getVendorById(id));
+        Vendor vendor = vendorService.getVendorById(id);
+        if (vendor != null) {
+            return ResponseEntity.status(200).body(vendor);
+        } else {
+            return ResponseEntity.status(404).build();
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<Vendor>> getAllVendors() {
-        return ResponseEntity.ok(vendorService.getAllVendors());
+        List<Vendor> vendors = vendorService.getAllVendors();
+        return ResponseEntity.status(200).body(vendors);
     }
 
     @PutMapping("/{id}/deactivate")
     public ResponseEntity<String> deactivateVendor(@PathVariable Long id) {
-        vendorService.deactivateVendor(id);
-        return ResponseEntity.ok("Vendor deactivated successfully");
+        boolean isDeactivated = vendorService.deactivateVendor(id);
+        if (isDeactivated) {
+            return ResponseEntity.status(200).body("Vendor deactivated successfully");
+        } else {
+            return ResponseEntity.status(404).build();
+        }
     }
 }
