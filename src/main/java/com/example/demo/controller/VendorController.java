@@ -24,6 +24,7 @@ public class VendorController {
     public VendorController(VendorService vendorService) {
         this.vendorService = vendorService;
     }
+    
     @PostMapping
     public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
         Vendor v = vendorService.createVendor(vendor);
