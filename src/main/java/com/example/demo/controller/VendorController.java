@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,48 +19,34 @@ import com.example.demo.service.VendorService;
 @RestController
 @RequestMapping("/api/vendors")
 public class VendorController {
-
     @Autowired
-    private VendorService vendorService;
+    VendorService vendorService;
 
     @PostMapping
     public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
-        Vendor vnd = vendorService.createVendor(vendor);
-        return ResponseEntity.status(201).body(vnd);
+        return new ResponseEntity<>(vendorService.createVendor(vendor), HttpStatus.CREATED);
     }
-
+    
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateVendor(
-            @PathVariable int id,
+    public ResponseEntity<Vendor> updateVendor(
+            @PathVariable Long id,
             @RequestBody Vendor vendor) {
-
-        Vendor updated = vendorService.updateVendor(id, vendor);
-        if (updated != null) {
-            return ResponseEntity.ok("Updated successfully");
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/{id}/deactivate")
-    public ResponseEntity<String> deactivateVendor(@PathVariable int id) {
-        Vendor deactivated = vendorService.deactivateVendor(id);
-        if (deactivated != null) {
-            return ResponseEntity.ok("Deactivated successfully");
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(vendorService.updateVendor(id, vendor));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Vendor> getById(@PathVariable int id) {
-        Vendor vnd = vendorService.getVendorById(id);
-        if (vnd == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(vnd);
+    public ResponseEntity<Vendor> getVendorById(@PathVariable Long id) {
+        return ResponseEntity.ok(vendorService.getVendorById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<Vendor>> getAll() {
+    public ResponseEntity<List<Vendor>> getAllVendors() {
         return ResponseEntity.ok(vendorService.getAllVendors());
+    }
+
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<String> deactivateVendor(@PathVariable Long id) {
+        vendorService.deactivateVendor(id);
+        return ResponseEntity.ok("Vendor deactivated successfully");
     }
 }

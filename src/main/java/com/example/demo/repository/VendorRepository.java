@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.Vendor;
 
 @Repository
-public interface VendorRepository extends JpaRepository<Vendor,Integer> {
-    
+public interface VendorRepository extends JpaRepository<Vendor,Long> {
+    boolean existsByName(String name);
 }

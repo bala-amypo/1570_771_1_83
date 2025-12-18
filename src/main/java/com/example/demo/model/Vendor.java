@@ -9,28 +9,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="vendor")
 
 public class Vendor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
-    @Column(unique = true)
+
+    @Column(nullable=false, unique=true)
     private String name;
+
     @Email
-    @NotBlank
     private String contactEmail;
-    @NotBlank
+    
     private String contactPhone;
-    @NotBlank
-    private Boolean active;
-    @NotBlank
+
+    @Column(nullable=false)
+    private Boolean active = true;
+    
     private Timestamp createdAt;
-    @NotBlank
     private Timestamp updatedAt;
 
     public Vendor() {}
