@@ -18,33 +18,48 @@ import com.example.demo.service.VendorService;
 @RestController
 @RequestMapping("/api/vendors")
 public class VendorController {
+
     @Autowired
-    VendorService vendorService;
+    private VendorService vendorService;
 
     @PostMapping
-    public ResponseEntity<Vendor> createAll(@RequestBody Vendor vendor) {
-        Vendor vnd=vendorService.createVendor(vendor);
+    public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
+        Vendor vnd = vendorService.createVendor(vendor);
         return ResponseEntity.status(201).body(vnd);
     }
-    
+
     @PutMapping("/{id}")
-    public ResponseEntity<String> putAll(int id, @RequestBody Vendor vendor) {
-        if(vendorService.updateVendor(id, vendor)!=null) {
-            return ResponseEntity.status(201).body("Successful");
+    public ResponseEntity<String> updateVendor(
+            @PathVariable int id,
+            @RequestBody Vendor vendor) {
+
+        Vendor updated = vendorService.updateVendor(id, vendor);
+        if (updated != null) {
+            return ResponseEntity.ok("Updated successfully");
         }
-        else {
-            return ResponseEntity.status(404).build();
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<String> deactivateVendor(@PathVariable int id) {
+        Vendor deactivated = vendorService.deactivateVendor(id);
+        if (deactivated != null) {
+            return ResponseEntity.ok("Deactivated successfully");
         }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Vendor> getById(@PathVariable int id) {
-        Vendor vnd=vendorService.getVendorById(id);
-        return ResponseEntity.status(200).body(vnd);
+        Vendor vnd = vendorService.getVendorById(id);
+        if (vnd == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(vnd);
     }
 
     @GetMapping
-    public List<Vendor> getAll() {
-        return vendorService.getAllVendors();
+    public ResponseEntity<List<Vendor>> getAll() {
+        return ResponseEntity.ok(vendorService.getAllVendors());
     }
 }
