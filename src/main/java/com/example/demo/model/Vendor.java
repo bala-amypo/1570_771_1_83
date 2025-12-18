@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 
 @Entity
-@Table(name="Vendor")
+@Table(name="vendor")
 
 public class Vendor {
 
