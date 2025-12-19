@@ -9,8 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="delivery_evaluations")
@@ -32,7 +30,6 @@ public class DeliveryEvaluation {
     
     private Double qualityScore;
     
-    @Temporal(TemporalType.DATE)
     private Date evaluationDate;
 
     private Boolean meetsDeliveryTarget;

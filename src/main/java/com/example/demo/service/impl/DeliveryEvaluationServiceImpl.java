@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -59,7 +59,10 @@ public class DeliveryEvaluationServiceImpl implements DeliveryEvaluationService 
         evaluation.setMeetsQualityTarget(
                 evaluation.getQualityScore() >= sla.getMinQualityScore());
 
-        evaluation.setEvaluationDate(new Date());
+        evaluation.setEvaluationDate(
+                new Date(System.currentTimeMillis())
+        );
+
         evaluation.setVendor(vendor);
         evaluation.setSlaRequirement(sla);
 
