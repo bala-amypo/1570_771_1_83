@@ -1,29 +1,37 @@
 package com.example.demo.model;
 
-import java.util.Date;
+import java.sql.Date;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "delivery_evaluations")
-public class DeliveryEvaluation {
+@Table(name="delivery_evaluations")
 
+public class DeliveryEvaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "vendor_id")
+    @JoinColumn(name="vendor_id", nullable=false)
     private Vendor vendor;
-
+    
     @ManyToOne
-    @JoinColumn(name = "sla_requirement_id")
+    @JoinColumn(name="sla_requirement_id", nullable=false)
     private SLARequirement slaRequirement;
 
     private Integer actualDeliveryDays;
-
+    
     private Double qualityScore;
-
+    
     @Temporal(TemporalType.DATE)
     private Date evaluationDate;
 
@@ -31,7 +39,18 @@ public class DeliveryEvaluation {
 
     private Boolean meetsQualityTarget;
 
-    // getters and setters
+    public DeliveryEvaluation() {}
+
+    public DeliveryEvaluation(Vendor vendor, SLARequirement slaRequirement, Integer actualDeliveryDays, Double qualityScore, Date evaluationDate, Boolean meetsDeliveryTarget, Boolean meetsQualityTarget) {
+        this.vendor = vendor;
+        this.slaRequirement = slaRequirement;
+        this.actualDeliveryDays = actualDeliveryDays;
+        this.qualityScore = qualityScore;
+        this.evaluationDate = evaluationDate;
+        this.meetsDeliveryTarget = meetsDeliveryTarget;
+        this.meetsQualityTarget = meetsQualityTarget;
+    }
+
     public Long getId() {
         return id;
     }
@@ -40,52 +59,56 @@ public class DeliveryEvaluation {
         return vendor;
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
-    }
-
     public SLARequirement getSlaRequirement() {
         return slaRequirement;
-    }
-
-    public void setSlaRequirement(SLARequirement slaRequirement) {
-        this.slaRequirement = slaRequirement;
     }
 
     public Integer getActualDeliveryDays() {
         return actualDeliveryDays;
     }
 
-    public void setActualDeliveryDays(Integer actualDeliveryDays) {
-        this.actualDeliveryDays = actualDeliveryDays;
-    }
-
     public Double getQualityScore() {
         return qualityScore;
-    }
-
-    public void setQualityScore(Double qualityScore) {
-        this.qualityScore = qualityScore;
     }
 
     public Date getEvaluationDate() {
         return evaluationDate;
     }
 
-    public void setEvaluationDate(Date evaluationDate) {
-        this.evaluationDate = evaluationDate;
-    }
-
     public Boolean getMeetsDeliveryTarget() {
         return meetsDeliveryTarget;
     }
 
-    public void setMeetsDeliveryTarget(Boolean meetsDeliveryTarget) {
-        this.meetsDeliveryTarget = meetsDeliveryTarget;
-    }
-
     public Boolean getMeetsQualityTarget() {
         return meetsQualityTarget;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public void setSlaRequirement(SLARequirement slaRequirement) {
+        this.slaRequirement = slaRequirement;
+    }
+
+    public void setActualDeliveryDays(Integer actualDeliveryDays) {
+        this.actualDeliveryDays = actualDeliveryDays;
+    }
+
+    public void setQualityScore(Double qualityScore) {
+        this.qualityScore = qualityScore;
+    }
+
+    public void setEvaluationDate(Date evaluationDate) {
+        this.evaluationDate = evaluationDate;
+    }
+
+    public void setMeetsDeliveryTarget(Boolean meetsDeliveryTarget) {
+        this.meetsDeliveryTarget = meetsDeliveryTarget;
     }
 
     public void setMeetsQualityTarget(Boolean meetsQualityTarget) {
