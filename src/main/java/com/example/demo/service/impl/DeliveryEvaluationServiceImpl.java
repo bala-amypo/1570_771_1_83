@@ -77,7 +77,7 @@ public class DeliveryEvaluationServiceImpl
 
     @Override
     public List<DeliveryEvaluation> getEvaluationsForVendor(Long vendorId) {
-        return deliveryEvaluationRepository.findByVendorId(vendorId);
+        return deliveryEvaluationRepository.findByVendor_Id(vendorId);
     }
 
     @Override

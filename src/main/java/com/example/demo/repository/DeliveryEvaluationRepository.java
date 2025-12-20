@@ -12,7 +12,7 @@ import com.example.demo.model.Vendor;
 public interface DeliveryEvaluationRepository
         extends JpaRepository<DeliveryEvaluation, Long> {
 
-    List<DeliveryEvaluation> findByVendorId(Long vendorId);
+    List<DeliveryEvaluation> findByVendor_Id(Long vendorId);
 
     List<DeliveryEvaluation> findBySlaRequirementId(Long slaRequirementId);
 
