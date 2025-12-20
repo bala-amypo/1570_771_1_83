@@ -38,7 +38,7 @@ public class VendorPerformanceScoreServiceImpl
                 .orElseThrow(() -> new RuntimeException("Vendor not found"));
 
         List<DeliveryEvaluation> evaluations =
-                evaluationRepository.findByVendorId(vendorId);
+                evaluationRepository.findByVendor_Id(vendorId);
 
         double onTimePercentage = 0;
         double qualityPercentage = 0;
@@ -72,7 +72,7 @@ public class VendorPerformanceScoreServiceImpl
     @Override
     public VendorPerformanceScore getLatestScore(Long vendorId) {
         return scoreRepository
-                .findByVendorOrderByCalculatedAtDesc(vendorId)
+                .findByVendor_IdOrderByCalculatedAtDesc(vendorId)
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Score not found"));
@@ -80,6 +80,7 @@ public class VendorPerformanceScoreServiceImpl
 
     @Override
     public List<VendorPerformanceScore> getScoresForVendor(Long vendorId) {
-        return scoreRepository.findByVendorOrderByCalculatedAtDesc(vendorId);
+        return scoreRepository
+                .findByVendor_IdOrderByCalculatedAtDesc(vendorId);
     }
 }
