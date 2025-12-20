@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="delivery_evaluations")
 public class DeliveryEvaluation {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
