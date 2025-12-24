@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "vendors", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
@@ -22,14 +23,21 @@ public class Vendor {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    @OneToMany(mappedBy = "vendor")
+    private List<DeliveryEvaluation> deliveryEvaluations;
+
+    @OneToMany(mappedBy = "vendor")
+    private List<VendorPerformanceScore> performanceScores;
+
     @PrePersist
-    void onCreate() {
+    public void prePersist() {
         createdAt = new Timestamp(System.currentTimeMillis());
-        active = true;
+        updatedAt = createdAt;
+        if (active == null) active = true;
     }
 
     @PreUpdate
-    void onUpdate() {
+    public void preUpdate() {
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
@@ -61,6 +69,14 @@ public class Vendor {
         return updatedAt;
     }
 
+    public List<DeliveryEvaluation> getDeliveryEvaluations() {
+        return deliveryEvaluations;
+    }
+
+    public List<VendorPerformanceScore> getPerformanceScores() {
+        return performanceScores;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -89,5 +105,11 @@ public class Vendor {
         this.updatedAt = updatedAt;
     }
 
-    
+    public void setDeliveryEvaluations(List<DeliveryEvaluation> deliveryEvaluations) {
+        this.deliveryEvaluations = deliveryEvaluations;
+    }
+
+    public void setPerformanceScores(List<VendorPerformanceScore> performanceScores) {
+        this.performanceScores = performanceScores;
+    }    
 }
