@@ -1,17 +1,10 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name="vendor_performance_scores")
+@Table(name = "vendor_performance_scores")
 public class VendorPerformanceScore {
 
     @Id
@@ -19,26 +12,14 @@ public class VendorPerformanceScore {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="vendor_id",nullable=false)
+    @JoinColumn(name = "vendor_id", nullable = false)
     private Vendor vendor;
 
     private Double onTimePercentage;
-    
     private Double qualityCompliancePercentage;
-    
     private Double overallScore;
-    
+
     private Timestamp calculatedAt;
-
-    public VendorPerformanceScore() {}
-
-    public VendorPerformanceScore(Vendor vendor, Double onTimePercentage, Double qualityCompliancePercentage, Double overallScore, Timestamp calculatedAt) {
-        this.vendor = vendor;
-        this.onTimePercentage = onTimePercentage;
-        this.qualityCompliancePercentage = qualityCompliancePercentage;
-        this.overallScore = overallScore;
-        this.calculatedAt = calculatedAt;
-    }
 
     public Long getId() {
         return id;
@@ -86,5 +67,5 @@ public class VendorPerformanceScore {
 
     public void setCalculatedAt(Timestamp calculatedAt) {
         this.calculatedAt = calculatedAt;
-    }
+    }    
 }
