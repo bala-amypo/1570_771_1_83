@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(password); // plain text (NO passwordEncoder)
         user.setRole(role);
 
         return userRepository.save(user);
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!user.getPassword().equals(password)) {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
