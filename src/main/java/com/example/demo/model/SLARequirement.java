@@ -1,44 +1,23 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="sla_requirement")
-
+@Table(name = "sla_requirements", uniqueConstraints = @UniqueConstraint(columnNames = "requirementName"))
 public class SLARequirement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String requirementName;
 
     private String description;
-
-    @Column(nullable=false)
     private Integer maxDeliveryDays;
-
-    @Column(nullable = false)
     private Double minQualityScore;
 
-    @Column(nullable=false)
     private Boolean active = true;
-    
-    public SLARequirement() {}
-
-    public SLARequirement(String requirementName, String description, Integer maxDeliveryDays, Double minQualityScore, Boolean active) {
-        this.requirementName = requirementName;
-        this.description = description;
-        this.maxDeliveryDays = maxDeliveryDays;
-        this.minQualityScore = minQualityScore;
-        this.active = active;
-    }
 
     public Long getId() {
         return id;
@@ -86,5 +65,5 @@ public class SLARequirement {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }   
+    }
 }
