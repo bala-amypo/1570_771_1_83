@@ -1,47 +1,36 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-
 @Entity
-@Table(name="vendor")
-
+@Table(name = "vendors", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Vendor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Email
     private String contactEmail;
-    
     private String contactPhone;
 
-    @Column(nullable=false)
     private Boolean active = true;
-    
+
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public Vendor() {}
+    @PrePersist
+    void onCreate() {
+        createdAt = new Timestamp(System.currentTimeMillis());
+        active = true;
+    }
 
-    public Vendor(String name, String contactEmail, String contactPhone, Boolean active, Timestamp createdAt, Timestamp updatedAt) {
-        this.name = name;
-        this.contactEmail = contactEmail;
-        this.contactPhone = contactPhone;
-        this.active = active;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
     public Long getId() {
@@ -99,4 +88,6 @@ public class Vendor {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    
 }
