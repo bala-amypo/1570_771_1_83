@@ -1,17 +1,15 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.model.Vendor;
 import com.example.demo.repository.VendorRepository;
 import com.example.demo.service.VendorService;
 
-@Service
+import java.util.List;
+
 public class VendorServiceImpl implements VendorService {
 
     private final VendorRepository vendorRepository;
+
     public VendorServiceImpl(VendorRepository vendorRepository) {
         this.vendorRepository = vendorRepository;
     }
@@ -27,13 +25,7 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public Vendor updateVendor(Long id, Vendor vendor) {
-        Vendor existing = vendorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vendor not found"));
-        
-        if (!existing.getName().equals(vendor.getName())
-                && vendorRepository.existsByName(vendor.getName())) {
-            throw new IllegalArgumentException("Vendor name must be unique");
-        }
+        Vendor existing = getVendorById(id);
         existing.setName(vendor.getName());
         existing.setContactEmail(vendor.getContactEmail());
         existing.setContactPhone(vendor.getContactPhone());
@@ -53,9 +45,7 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public void deactivateVendor(Long id) {
-        Vendor vendor = vendorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vendor not found"));
-
+        Vendor vendor = getVendorById(id);
         vendor.setActive(false);
         vendorRepository.save(vendor);
     }
