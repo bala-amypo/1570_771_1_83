@@ -82,7 +82,5 @@ public class SLARequirement {
 
     public void setDeliveryEvaluations(List<DeliveryEvaluation> deliveryEvaluations) {
         this.deliveryEvaluations = deliveryEvaluations;
-    }
-
-    
+    }   
 }
