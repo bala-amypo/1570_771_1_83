@@ -1,11 +1,14 @@
 package com.example.demo.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.VendorTier;
 import com.example.demo.repository.VendorTierRepository;
 import com.example.demo.service.VendorTierService;
 
 import java.util.List;
 
+@Service
 public class VendorTierServiceImpl implements VendorTierService {
 
     private final VendorTierRepository repository;
