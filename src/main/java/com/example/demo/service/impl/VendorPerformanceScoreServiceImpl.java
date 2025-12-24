@@ -56,11 +56,11 @@ public class VendorPerformanceScoreServiceImpl implements VendorPerformanceScore
 
     @Override
     public VendorPerformanceScore getLatestScore(Long vendorId) {
-        return scoreRepository.findByVendorOrderByCalculatedAtDesc(vendorId).get(0);
+        return scoreRepository.findByVendor_IdOrderByCalculatedAtDesc(vendorId).get(0);
     }
 
     @Override
     public List<VendorPerformanceScore> getScoresForVendor(Long vendorId) {
-        return scoreRepository.findByVendorOrderByCalculatedAtDesc(vendorId);
+        return scoreRepository.findByVendor_IdOrderByCalculatedAtDesc(vendorId);
     }
 }
