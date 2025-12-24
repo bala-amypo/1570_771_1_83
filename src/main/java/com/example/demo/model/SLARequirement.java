@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sla_requirements", uniqueConstraints = @UniqueConstraint(columnNames = "requirementName"))
@@ -18,6 +19,14 @@ public class SLARequirement {
     private Double minQualityScore;
 
     private Boolean active = true;
+
+    @OneToMany(mappedBy = "slaRequirement")
+    private List<DeliveryEvaluation> deliveryEvaluations;
+
+    @PrePersist
+    public void prePersist() {
+        if (active == null) active = true;
+    }
 
     public Long getId() {
         return id;
@@ -43,6 +52,10 @@ public class SLARequirement {
         return active;
     }
 
+    public List<DeliveryEvaluation> getDeliveryEvaluations() {
+        return deliveryEvaluations;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,4 +79,10 @@ public class SLARequirement {
     public void setActive(Boolean active) {
         this.active = active;
     }
+
+    public void setDeliveryEvaluations(List<DeliveryEvaluation> deliveryEvaluations) {
+        this.deliveryEvaluations = deliveryEvaluations;
+    }
+
+    
 }
