@@ -1,54 +1,43 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.VendorTier;
 import com.example.demo.service.VendorTierService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/tiers")
 public class VendorTierController {
 
-    private final VendorTierService vendorTierService;
+    private final VendorTierService service;
 
-    public VendorTierController(VendorTierService vendorTierService) {
-        this.vendorTierService = vendorTierService;
+    public VendorTierController(VendorTierService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<VendorTier> createTier(@RequestBody VendorTier tier) {
-        VendorTier created = vendorTierService.createTier(tier);
-        return ResponseEntity.status(201).body(created);
+    public VendorTier create(@RequestBody VendorTier tier) {
+        return service.createTier(tier);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VendorTier> updateTier(
-            @PathVariable Long id,
-            @RequestBody VendorTier tier) {
-
-        VendorTier updated = vendorTierService.updateTier(id, tier);
-        return ResponseEntity.status(200).body(updated);
+    public VendorTier update(@PathVariable Long id, @RequestBody VendorTier tier) {
+        return service.updateTier(id, tier);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VendorTier> getTierById(@PathVariable Long id) {
-        return ResponseEntity.status(200)
-                .body(vendorTierService.getTierById(id));
+    public VendorTier get(@PathVariable Long id) {
+        return service.getTierById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<VendorTier>> getAllTiers() {
-        return ResponseEntity.status(200)
-                .body(vendorTierService.getAllTiers());
+    public List<VendorTier> getAll() {
+        return service.getAllTiers();
     }
 
     @PutMapping("/{id}/deactivate")
-    public ResponseEntity<String> deactivateTier(@PathVariable Long id) {
-        vendorTierService.deactivateTier(id);
-        return ResponseEntity.status(200)
-                .body("Vendor tier deactivated successfully");
+    public void deactivate(@PathVariable Long id) {
+        service.deactivateTier(id);
     }
 }

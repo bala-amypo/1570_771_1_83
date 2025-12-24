@@ -1,53 +1,38 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.DeliveryEvaluation;
 import com.example.demo.service.DeliveryEvaluationService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/evaluations")
 public class DeliveryEvaluationController {
 
-    private final DeliveryEvaluationService deliveryEvaluationService;
+    private final DeliveryEvaluationService service;
 
-    public DeliveryEvaluationController(
-            DeliveryEvaluationService deliveryEvaluationService) {
-        this.deliveryEvaluationService = deliveryEvaluationService;
+    public DeliveryEvaluationController(DeliveryEvaluationService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<DeliveryEvaluation> createEvaluation(
-            @RequestBody DeliveryEvaluation evaluation) {
-
-        return ResponseEntity.status(201)
-                .body(deliveryEvaluationService.createEvaluation(evaluation));
+    public DeliveryEvaluation create(@RequestBody DeliveryEvaluation eval) {
+        return service.createEvaluation(eval);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DeliveryEvaluation> getEvaluationById(
-            @PathVariable Long id) {
-
-        return ResponseEntity.status(200)
-                .body(deliveryEvaluationService.getEvaluationById(id));
+    public DeliveryEvaluation get(@PathVariable Long id) {
+        return service.getEvaluationById(id);
     }
 
     @GetMapping("/vendor/{vendorId}")
-    public ResponseEntity<List<DeliveryEvaluation>> getEvaluationsForVendor(
-            @PathVariable Long vendorId) {
-
-        return ResponseEntity.status(200)
-                .body(deliveryEvaluationService.getEvaluationsForVendor(vendorId));
+    public List<DeliveryEvaluation> byVendor(@PathVariable Long vendorId) {
+        return service.getEvaluationsForVendor(vendorId);
     }
 
     @GetMapping("/requirement/{reqId}")
-    public ResponseEntity<List<DeliveryEvaluation>> getEvaluationsForRequirement(
-            @PathVariable Long reqId) {
-
-        return ResponseEntity.status(200)
-                .body(deliveryEvaluationService.getEvaluationsForRequirement(reqId));
+    public List<DeliveryEvaluation> byRequirement(@PathVariable Long reqId) {
+        return service.getEvaluationsForRequirement(reqId);
     }
 }
