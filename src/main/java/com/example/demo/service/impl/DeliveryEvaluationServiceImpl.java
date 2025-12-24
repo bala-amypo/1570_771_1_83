@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.DeliveryEvaluationService;
@@ -7,6 +9,7 @@ import com.example.demo.service.DeliveryEvaluationService;
 import java.util.List;
 import java.util.Date;
 
+@Service
 public class DeliveryEvaluationServiceImpl implements DeliveryEvaluationService {
 
     private final DeliveryEvaluationRepository evaluationRepository;

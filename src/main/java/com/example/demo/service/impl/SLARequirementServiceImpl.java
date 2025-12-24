@@ -1,11 +1,14 @@
 package com.example.demo.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.SLARequirement;
 import com.example.demo.repository.SLARequirementRepository;
 import com.example.demo.service.SLARequirementService;
 
 import java.util.List;
 
+@Service
 public class SLARequirementServiceImpl implements SLARequirementService {
 
     private final SLARequirementRepository repository;
