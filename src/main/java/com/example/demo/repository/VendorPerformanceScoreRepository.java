@@ -1,11 +1,10 @@
 package com.example.demo.repository;
 
-import java.util.List;
-
+import com.example.demo.model.VendorPerformanceScore;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.model.VendorPerformanceScore;
+import java.util.List;
 
 public interface VendorPerformanceScoreRepository extends JpaRepository<VendorPerformanceScore, Long> {
-    List<VendorPerformanceScore> findByVendor_IdOrderByCalculatedAtDesc(Long vendorId);
+    List<VendorPerformanceScore> findByVendorOrderByCalculatedAtDesc(Long vendorId);
 }

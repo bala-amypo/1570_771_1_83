@@ -1,10 +1,9 @@
 package com.example.demo.repository;
 
-import java.util.List;
-
+import com.example.demo.model.VendorTier;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.model.VendorTier;
+import java.util.List;
 
 public interface VendorTierRepository extends JpaRepository<VendorTier, Long> {
     List<VendorTier> findByActiveTrueOrderByMinScoreThresholdDesc();
