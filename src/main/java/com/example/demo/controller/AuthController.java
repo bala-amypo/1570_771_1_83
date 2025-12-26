@@ -15,15 +15,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestParam String email,
-                         @RequestParam String password,
-                         @RequestParam String role) {
+    public User register(@RequestParam String email, @RequestParam String password, @RequestParam String role) {
         return userService.register(email, password, role);
     }
 
     @PostMapping("/login")
-    public User login(@RequestParam String email,
-                      @RequestParam String password) {
+    public User login(@RequestParam String email, @RequestParam String password) {
         return userService.login(email, password);
     }
 }
