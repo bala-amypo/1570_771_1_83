@@ -4,11 +4,13 @@ import com.example.demo.model.VendorTier;
 import com.example.demo.service.VendorTierService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tiers")
+@SecurityRequirement(name="bearerAuth")
 public class VendorTierController {
 
     private final VendorTierService vendorTierService;

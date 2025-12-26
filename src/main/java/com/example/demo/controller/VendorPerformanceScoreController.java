@@ -4,11 +4,13 @@ import com.example.demo.model.VendorPerformanceScore;
 import com.example.demo.service.VendorPerformanceScoreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/scores")
+@SecurityRequirement(name="bearerAuth")
 public class VendorPerformanceScoreController {
 
     private final VendorPerformanceScoreService scoreService;

@@ -4,11 +4,13 @@ import com.example.demo.model.SLARequirement;
 import com.example.demo.service.SLARequirementService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/sla-requirements")
+@SecurityRequirement(name="bearerAuth")
 public class SLARequirementController {
 
     private final SLARequirementService slaRequirementService;
