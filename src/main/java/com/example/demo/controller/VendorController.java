@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Vendor;
 import com.example.demo.service.VendorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +18,29 @@ public class VendorController {
     }
 
     @PostMapping
-    public Vendor createVendor(@RequestBody Vendor vendor) {
-        return vendorService.createVendor(vendor);
+    public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
+        return ResponseEntity.ok(vendorService.createVendor(vendor));
     }
 
     @PutMapping("/{id}")
-    public Vendor updateVendor(@PathVariable Long id,
-                               @RequestBody Vendor vendor) {
-        return vendorService.updateVendor(id, vendor);
+    public ResponseEntity<Vendor> updateVendor(@PathVariable Long id,
+                                               @RequestBody Vendor vendor) {
+        return ResponseEntity.ok(vendorService.updateVendor(id, vendor));
     }
 
     @GetMapping("/{id}")
-    public Vendor getVendor(@PathVariable Long id) {
-        return vendorService.getVendorById(id);
+    public ResponseEntity<Vendor> getVendor(@PathVariable Long id) {
+        return ResponseEntity.ok(vendorService.getVendorById(id));
     }
 
     @GetMapping
-    public List<Vendor> getAllVendors() {
-        return vendorService.getAllVendors();
+    public ResponseEntity<List<Vendor>> getAllVendors() {
+        return ResponseEntity.ok(vendorService.getAllVendors());
     }
 
-    @DeleteMapping("/{id}")
-    public void deactivateVendor(@PathVariable Long id) {
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivateVendor(@PathVariable Long id) {
         vendorService.deactivateVendor(id);
+        return ResponseEntity.ok().build();
     }
 }

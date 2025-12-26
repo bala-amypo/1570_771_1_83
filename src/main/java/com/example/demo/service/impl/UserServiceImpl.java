@@ -12,39 +12,36 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User register(String email, String password, String role) {
-        if (userRepository.findByEmail(email).isPresent()) {
+        userRepository.findByEmail(email).ifPresent(u -> {
             throw new IllegalArgumentException("Email already exists");
-        }
+        });
 
-        if (role == null || role.isBlank()) {
-            throw new IllegalArgumentException("Role is required");
-        }
-
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setRole(role);
-
+        User user = new User(
+                email,
+                passwordEncoder.encode(password),
+                role
+        );
         return userRepository.save(user);
     }
 
     @Override
     public User login(String email, String password) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("Invalid credentials");
         }
-
         return user;
     }
 

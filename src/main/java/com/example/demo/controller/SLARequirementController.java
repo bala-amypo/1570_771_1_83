@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SLARequirement;
 import com.example.demo.service.SLARequirementService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,35 +11,44 @@ import java.util.List;
 @RequestMapping("/api/sla-requirements")
 public class SLARequirementController {
 
-    private final SLARequirementService service;
+    private final SLARequirementService slaRequirementService;
 
-    public SLARequirementController(SLARequirementService service) {
-        this.service = service;
+    public SLARequirementController(SLARequirementService slaRequirementService) {
+        this.slaRequirementService = slaRequirementService;
     }
 
     @PostMapping
-    public SLARequirement create(@RequestBody SLARequirement req) {
-        return service.createRequirement(req);
+    public ResponseEntity<SLARequirement> create(@RequestBody SLARequirement req) {
+        return ResponseEntity.ok(
+                slaRequirementService.createRequirement(req)
+        );
     }
 
     @PutMapping("/{id}")
-    public SLARequirement update(@PathVariable Long id,
-                                 @RequestBody SLARequirement req) {
-        return service.updateRequirement(id, req);
+    public ResponseEntity<SLARequirement> update(@PathVariable Long id,
+                                                 @RequestBody SLARequirement req) {
+        return ResponseEntity.ok(
+                slaRequirementService.updateRequirement(id, req)
+        );
     }
 
     @GetMapping("/{id}")
-    public SLARequirement get(@PathVariable Long id) {
-        return service.getRequirementById(id);
+    public ResponseEntity<SLARequirement> get(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                slaRequirementService.getRequirementById(id)
+        );
     }
 
     @GetMapping
-    public List<SLARequirement> getAll() {
-        return service.getAllRequirements();
+    public ResponseEntity<List<SLARequirement>> getAll() {
+        return ResponseEntity.ok(
+                slaRequirementService.getAllRequirements()
+        );
     }
 
-    @DeleteMapping("/{id}")
-    public void deactivate(@PathVariable Long id) {
-        service.deactivateRequirement(id);
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivate(@PathVariable Long id) {
+        slaRequirementService.deactivateRequirement(id);
+        return ResponseEntity.ok().build();
     }
 }

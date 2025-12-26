@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 public class SLARequirementServiceImpl implements SLARequirementService {
 
-    private final SLARequirementRepository repository;
+    private final SLARequirementRepository slaRequirementRepository;
 
-    public SLARequirementServiceImpl(SLARequirementRepository repository) {
-        this.repository = repository;
+    public SLARequirementServiceImpl(SLARequirementRepository slaRequirementRepository) {
+        this.slaRequirementRepository = slaRequirementRepository;
     }
 
     @Override
@@ -21,50 +21,61 @@ public class SLARequirementServiceImpl implements SLARequirementService {
         if (req.getMaxDeliveryDays() == null || req.getMaxDeliveryDays() <= 0) {
             throw new IllegalArgumentException("Max delivery days must be greater than 0");
         }
-        if (req.getMinQualityScore() == null ||
-                req.getMinQualityScore() < 0 || req.getMinQualityScore() > 100) {
+        if (req.getMinQualityScore() == null
+                || req.getMinQualityScore() < 0
+                || req.getMinQualityScore() > 100) {
             throw new IllegalArgumentException("Quality score must be between 0 and 100");
         }
-        if (repository.existsByRequirementName(req.getRequirementName())) {
+        if (slaRequirementRepository.existsByRequirementName(req.getRequirementName())) {
             throw new IllegalArgumentException("Requirement name must be unique");
         }
         req.setActive(true);
-        return repository.save(req);
+        return slaRequirementRepository.save(req);
     }
 
     @Override
     public SLARequirement updateRequirement(Long id, SLARequirement req) {
-        SLARequirement existing = getRequirementById(id);
+        SLARequirement existing = slaRequirementRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Requirement not found"));
 
-        if (req.getRequirementName() != null &&
-                !req.getRequirementName().equals(existing.getRequirementName()) &&
-                repository.existsByRequirementName(req.getRequirementName())) {
+        if (req.getRequirementName() != null
+                && !req.getRequirementName().equals(existing.getRequirementName())
+                && slaRequirementRepository.existsByRequirementName(req.getRequirementName())) {
             throw new IllegalArgumentException("Requirement name must be unique");
         }
 
-        if (req.getRequirementName() != null) existing.setRequirementName(req.getRequirementName());
-        if (req.getDescription() != null) existing.setDescription(req.getDescription());
-        if (req.getMaxDeliveryDays() != null) existing.setMaxDeliveryDays(req.getMaxDeliveryDays());
-        if (req.getMinQualityScore() != null) existing.setMinQualityScore(req.getMinQualityScore());
+        if (req.getRequirementName() != null) {
+            existing.setRequirementName(req.getRequirementName());
+        }
+        if (req.getDescription() != null) {
+            existing.setDescription(req.getDescription());
+        }
+        if (req.getMaxDeliveryDays() != null) {
+            existing.setMaxDeliveryDays(req.getMaxDeliveryDays());
+        }
+        if (req.getMinQualityScore() != null) {
+            existing.setMinQualityScore(req.getMinQualityScore());
+        }
 
-        return repository.save(existing);
+        return slaRequirementRepository.save(existing);
     }
 
     @Override
     public SLARequirement getRequirementById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("SLA requirement not found"));
+        return slaRequirementRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Requirement not found"));
     }
 
     @Override
     public List<SLARequirement> getAllRequirements() {
-        return repository.findAll();
+        return slaRequirementRepository.findAll();
     }
 
     @Override
     public void deactivateRequirement(Long id) {
-        SLARequirement req = getRequirementById(id);
+        SLARequirement req = slaRequirementRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Requirement not found"));
         req.setActive(false);
-        repository.save(req);
+        slaRequirementRepository.save(req);
     }
 }
