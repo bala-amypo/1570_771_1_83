@@ -44,8 +44,6 @@ public class DeliveryEvaluation {
         this.evaluationDate = evaluationDate;
     }
 
-    // Getters & Setters
-
     public Long getId() {
         return id;
     }
