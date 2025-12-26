@@ -1,9 +1,11 @@
-package com.example.demo.servlet;
+package com.example.demo;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class SimpleStatusServlet extends HttpServlet {
 
@@ -13,6 +15,9 @@ public class SimpleStatusServlet extends HttpServlet {
 
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.setContentType("text/plain");
-        resp.getWriter().write("OK");
+
+        PrintWriter writer = resp.getWriter();
+        writer.write("OK");
+        writer.flush();
     }
 }
