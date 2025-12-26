@@ -3,24 +3,25 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vendor_tiers")
+@Table(name = "vendor_tiers", uniqueConstraints = @UniqueConstraint(columnNames = "tierName"))
 public class VendorTier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String tierName;
 
+    @Column(nullable = false)
     private Double minScoreThreshold;
 
     private String description;
 
+    @Column(nullable = false)
     private Boolean active = true;
 
-    public VendorTier() {
-    }
+    public VendorTier() {}
 
     public VendorTier(String tierName, Double minScoreThreshold, String description) {
         this.tierName = tierName;
@@ -29,43 +30,22 @@ public class VendorTier {
         this.active = true;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getTierName() {
-        return tierName;
-    }
+    public String getTierName() { return tierName; }
+    public void setTierName(String tierName) { this.tierName = tierName; }
 
-    public Double getMinScoreThreshold() {
-        return minScoreThreshold;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTierName(String tierName) {
-        this.tierName = tierName;
-    }
-
+    public Double getMinScoreThreshold() { return minScoreThreshold; }
     public void setMinScoreThreshold(Double minScoreThreshold) {
         this.minScoreThreshold = minScoreThreshold;
     }
 
+    public String getDescription() { return description; }
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }

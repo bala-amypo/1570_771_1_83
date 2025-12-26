@@ -11,8 +11,6 @@ public class DeliveryEvaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /* Relationships */
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
@@ -20,8 +18,6 @@ public class DeliveryEvaluation {
     @ManyToOne(optional = false)
     @JoinColumn(name = "sla_requirement_id")
     private SLARequirement slaRequirement;
-
-    /* Fields */
 
     @Column(nullable = false)
     private Integer actualDeliveryDays;
