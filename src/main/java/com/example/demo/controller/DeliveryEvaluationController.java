@@ -4,11 +4,13 @@ import com.example.demo.model.DeliveryEvaluation;
 import com.example.demo.service.DeliveryEvaluationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/evaluations")
+@SecurityRequirement(name="bearerAuth")
 public class DeliveryEvaluationController {
 
     private final DeliveryEvaluationService deliveryEvaluationService;
