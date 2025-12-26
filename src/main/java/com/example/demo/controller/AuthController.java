@@ -23,20 +23,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(
-            @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String role) {
-
+    public ResponseEntity<User> register(@RequestParam String email,
+                                         @RequestParam String password,
+                                         @RequestParam String role) {
         return ResponseEntity.ok(
                 userService.register(email, password, role)
         );
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(
-            @RequestParam String email,
-            @RequestParam String password) {
+    public ResponseEntity<Map<String, Object>> login(@RequestParam String email,
+                                                     @RequestParam String password) {
 
         User user = userService.login(email, password);
 
@@ -46,6 +43,11 @@ public class AuthController {
                 user.getId()
         );
 
-        return ResponseEntity.ok(token);
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("email", user.getEmail());
+        response.put("role", user.getRole());
+
+        return ResponseEntity.ok(response);
     }
 }
