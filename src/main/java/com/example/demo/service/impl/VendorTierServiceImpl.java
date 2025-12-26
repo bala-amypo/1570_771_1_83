@@ -32,7 +32,6 @@ public class VendorTierServiceImpl implements VendorTierService {
 
         VendorTier saved = vendorTierRepository.save(tier);
 
-        // 🔍 TEMP DEBUG (you can remove later)
         System.out.println("SAVED TIER ID = " + saved.getId());
 
         return saved;
