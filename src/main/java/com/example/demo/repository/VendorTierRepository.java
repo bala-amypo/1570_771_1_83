@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VendorTierRepository extends JpaRepository<VendorTier, Long> {
+public interface VendorTierRepository
+        extends JpaRepository<VendorTier, Long> {
 
     boolean existsByTierName(String tierName);
 
