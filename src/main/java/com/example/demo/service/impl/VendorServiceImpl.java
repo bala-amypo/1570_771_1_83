@@ -9,50 +9,51 @@ import java.util.List;
 
 @Service
 public class VendorServiceImpl implements VendorService {
-    
+
     private final VendorRepository vendorRepository;
-    
+
     public VendorServiceImpl(VendorRepository vendorRepository) {
         this.vendorRepository = vendorRepository;
     }
-    
+
     @Override
     public Vendor createVendor(Vendor vendor) {
         if (vendorRepository.existsByName(vendor.getName())) {
             throw new IllegalArgumentException("Vendor name must be unique");
         }
-        if (vendor.getActive() == null) {
-            vendor.setActive(true);
-        }
+        vendor.setActive(true);
         return vendorRepository.save(vendor);
     }
-    
+
     @Override
     public Vendor updateVendor(Long id, Vendor vendor) {
         Vendor existing = vendorRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Vendor not found"));
-        
-        existing.setName(vendor.getName());
-        existing.setContactEmail(vendor.getContactEmail());
-        existing.setContactPhone(vendor.getContactPhone());
-        if (vendor.getActive() != null) {
-            existing.setActive(vendor.getActive());
+                .orElseThrow(() -> new IllegalArgumentException("Vendor not found"));
+
+        if (vendor.getName() != null &&
+                !vendor.getName().equals(existing.getName()) &&
+                vendorRepository.existsByName(vendor.getName())) {
+            throw new IllegalArgumentException("Vendor name must be unique");
         }
-        
+
+        if (vendor.getName() != null) existing.setName(vendor.getName());
+        if (vendor.getContactEmail() != null) existing.setContactEmail(vendor.getContactEmail());
+        if (vendor.getContactPhone() != null) existing.setContactPhone(vendor.getContactPhone());
+
         return vendorRepository.save(existing);
     }
-    
+
     @Override
     public Vendor getVendorById(Long id) {
         return vendorRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Vendor not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Vendor not found"));
     }
-    
+
     @Override
     public List<Vendor> getAllVendors() {
         return vendorRepository.findAll();
     }
-    
+
     @Override
     public void deactivateVendor(Long id) {
         Vendor vendor = getVendorById(id);
