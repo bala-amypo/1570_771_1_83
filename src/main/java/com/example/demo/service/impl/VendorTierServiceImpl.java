@@ -4,10 +4,12 @@ import com.example.demo.model.VendorTier;
 import com.example.demo.repository.VendorTierRepository;
 import com.example.demo.service.VendorTierService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class VendorTierServiceImpl implements VendorTierService {
 
     private final VendorTierRepository vendorTierRepository;
@@ -21,11 +23,19 @@ public class VendorTierServiceImpl implements VendorTierService {
         if (tier.getMinScoreThreshold() < 0 || tier.getMinScoreThreshold() > 100) {
             throw new IllegalArgumentException("Score threshold must be between 0–100");
         }
+
         if (vendorTierRepository.existsByTierName(tier.getTierName())) {
             throw new IllegalArgumentException("Tier name must be unique");
         }
+
         tier.setActive(true);
-        return vendorTierRepository.save(tier);
+
+        VendorTier saved = vendorTierRepository.save(tier);
+
+        // 🔍 TEMP DEBUG (you can remove later)
+        System.out.println("SAVED TIER ID = " + saved.getId());
+
+        return saved;
     }
 
     @Override
@@ -58,10 +68,4 @@ public class VendorTierServiceImpl implements VendorTierService {
     }
 
     @Override
-    public void deactivateTier(Long id) {
-        VendorTier tier = vendorTierRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tier not found"));
-        tier.setActive(false);
-        vendorTierRepository.save(tier);
-    }
-}
+    public void deactivateTier(Long id
