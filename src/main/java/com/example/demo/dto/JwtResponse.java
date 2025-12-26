@@ -1,10 +1,10 @@
 package com.example.demo.dto;
 
-public class AuthResponseDto {
+public class JwtResponse {
 
     private String token;
 
-    public AuthResponseDto(String token) {
+    public JwtResponse(String token) {
         this.token = token;
     }
 
