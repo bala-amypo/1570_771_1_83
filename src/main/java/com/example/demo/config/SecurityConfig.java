@@ -22,13 +22,28 @@ public class SecurityConfig {
     }
 
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .csrf(csrf -> csrf.disable()) // Often required for testing POST requests
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**").permitAll() // Allow everyone to register/login
-            .anyRequest().authenticated()
-        );
-    return http.build();
-}
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authorizeHttpRequests(auth -> auth
+
+                .requestMatchers(
+                        "/auth/register",
+                        "/auth/login",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**"
+                ).permitAll()
+
+                // 🔒 EVERYTHING ELSE NEEDS JWT
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtAuthenticationFilter,
+                    UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
 }
