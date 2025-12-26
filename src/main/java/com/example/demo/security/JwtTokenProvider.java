@@ -11,19 +11,27 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.expiration:0}")
     private long jwtExpiration;
+
+    // 🔥 REQUIRED FOR TESTNG (EXPLICIT CONSTRUCTOR)
+    public JwtTokenProvider(String secret, long expiration) {
+        this.jwtSecret = secret;
+        this.jwtExpiration = expiration;
+    }
+
+    // 🔥 REQUIRED FOR SPRING (DEFAULT CONSTRUCTOR)
+    public JwtTokenProvider() {
+    }
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    /**
-     * USED BY AuthController + TESTS
-     */
+    // === USED BY CONTROLLER & TESTS ===
     public String createToken(String email, String role, Long userId) {
 
         Date now = new Date();
@@ -40,9 +48,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    /**
-     * USED BY JwtAuthenticationFilter + TESTS
-     */
+    // === USED BY FILTER & TESTS ===
     public Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
