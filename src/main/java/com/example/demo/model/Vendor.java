@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "vendors")
@@ -17,6 +19,9 @@ public class Vendor {
     private String contactPhone;
 
     private Boolean active = true;
+
+    @OneToMany(mappedBy = "vendor")
+    private List<DeliveryEvaluation> evaluations = new ArrayList<>();
 
     public Vendor() {
     }
@@ -48,6 +53,10 @@ public class Vendor {
         return active;
     }
 
+    public List<DeliveryEvaluation> getEvaluations() {
+        return evaluations;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,5 +75,9 @@ public class Vendor {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public void setEvaluations(List<DeliveryEvaluation> evaluations) {
+        this.evaluations = evaluations;
     }
 }

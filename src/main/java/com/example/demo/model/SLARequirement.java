@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sla_requirements")
@@ -18,10 +20,14 @@ public class SLARequirement {
     private Double minQualityScore;
     private Boolean active = true;
 
+    @OneToMany(mappedBy = "slaRequirement")
+    private List<DeliveryEvaluation> evaluations = new ArrayList<>();
+
     public SLARequirement() {
     }
 
-    public SLARequirement(String requirementName, String description, Integer maxDeliveryDays, Double minQualityScore) {
+    public SLARequirement(String requirementName, String description,
+                          Integer maxDeliveryDays, Double minQualityScore) {
         this.requirementName = requirementName;
         this.description = description;
         this.maxDeliveryDays = maxDeliveryDays;
@@ -53,6 +59,10 @@ public class SLARequirement {
         return active;
     }
 
+    public List<DeliveryEvaluation> getEvaluations() {
+        return evaluations;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,5 +85,9 @@ public class SLARequirement {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public void setEvaluations(List<DeliveryEvaluation> evaluations) {
+        this.evaluations = evaluations;
     }
 }
