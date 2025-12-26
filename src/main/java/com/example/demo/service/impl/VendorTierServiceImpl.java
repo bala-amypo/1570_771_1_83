@@ -31,7 +31,6 @@ public class VendorTierServiceImpl implements VendorTierService {
         tier.setActive(true);
 
         VendorTier saved = vendorTierRepository.save(tier);
-
         System.out.println("SAVED TIER ID = " + saved.getId());
 
         return saved;
@@ -67,4 +66,10 @@ public class VendorTierServiceImpl implements VendorTierService {
     }
 
     @Override
-    public void deactivateTier(Long id
+    public void deactivateTier(Long id) {
+        VendorTier tier = vendorTierRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tier not found"));
+        tier.setActive(false);
+        vendorTierRepository.save(tier);
+    }
+}
