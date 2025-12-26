@@ -2,37 +2,47 @@ package com.example.demo.controller;
 
 import com.example.demo.model.DeliveryEvaluation;
 import com.example.demo.service.DeliveryEvaluationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/evaluations")
+@Tag(name = "Delivery Evaluations", description = "Delivery evaluation management endpoints")
+@SecurityRequirement(name = "Bearer Authentication")
 public class DeliveryEvaluationController {
-
-    private final DeliveryEvaluationService service;
-
-    public DeliveryEvaluationController(DeliveryEvaluationService service) {
-        this.service = service;
+    
+    private final DeliveryEvaluationService deliveryEvaluationService;
+    
+    public DeliveryEvaluationController(DeliveryEvaluationService deliveryEvaluationService) {
+        this.deliveryEvaluationService = deliveryEvaluationService;
     }
-
+    
     @PostMapping
-    public DeliveryEvaluation create(@RequestBody DeliveryEvaluation eval) {
-        return service.createEvaluation(eval);
+    @Operation(summary = "Create a new delivery evaluation")
+    public ResponseEntity<DeliveryEvaluation> createEvaluation(@RequestBody DeliveryEvaluation evaluation) {
+        return ResponseEntity.ok(deliveryEvaluationService.createEvaluation(evaluation));
     }
-
+    
     @GetMapping("/{id}")
-    public DeliveryEvaluation get(@PathVariable Long id) {
-        return service.getEvaluationById(id);
+    @Operation(summary = "Get evaluation by ID")
+    public ResponseEntity<DeliveryEvaluation> getEvaluationById(@PathVariable Long id) {
+        return ResponseEntity.ok(deliveryEvaluationService.getEvaluationById(id));
     }
-
+    
     @GetMapping("/vendor/{vendorId}")
-    public List<DeliveryEvaluation> byVendor(@PathVariable Long vendorId) {
-        return service.getEvaluationsForVendor(vendorId);
+    @Operation(summary = "Get evaluations for vendor")
+    public ResponseEntity<List<DeliveryEvaluation>> getEvaluationsForVendor(@PathVariable Long vendorId) {
+        return ResponseEntity.ok(deliveryEvaluationService.getEvaluationsForVendor(vendorId));
     }
-
+    
     @GetMapping("/requirement/{reqId}")
-    public List<DeliveryEvaluation> byRequirement(@PathVariable Long reqId) {
-        return service.getEvaluationsForRequirement(reqId);
+    @Operation(summary = "Get evaluations for requirement")
+    public ResponseEntity<List<DeliveryEvaluation>> getEvaluationsForRequirement(@PathVariable Long reqId) {
+        return ResponseEntity.ok(deliveryEvaluationService.getEvaluationsForRequirement(reqId));
     }
 }
