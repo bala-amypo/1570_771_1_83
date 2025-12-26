@@ -12,22 +12,30 @@ public class DeliveryEvaluation {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
     @ManyToOne
+    @JoinColumn(name = "sla_requirement_id")
     private SLARequirement slaRequirement;
 
     private Integer actualDeliveryDays;
+
     private Double qualityScore;
+
     private Boolean meetsDeliveryTarget;
+
     private Boolean meetsQualityTarget;
+
     private LocalDate evaluationDate;
 
     public DeliveryEvaluation() {
     }
 
-    public DeliveryEvaluation(Vendor vendor, SLARequirement slaRequirement,
-                              Integer actualDeliveryDays, Double qualityScore,
+    public DeliveryEvaluation(Vendor vendor,
+                              SLARequirement slaRequirement,
+                              Integer actualDeliveryDays,
+                              Double qualityScore,
                               LocalDate evaluationDate) {
         this.vendor = vendor;
         this.slaRequirement = slaRequirement;

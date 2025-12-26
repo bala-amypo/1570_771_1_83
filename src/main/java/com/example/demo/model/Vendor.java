@@ -17,13 +17,11 @@ public class Vendor {
 
     private String contactEmail;
     private String contactPhone;
+
     private Boolean active = true;
 
-    @OneToMany(mappedBy = "vendor")
-    private List<DeliveryEvaluation> evaluations = new ArrayList<>();
-
-    @OneToMany(mappedBy = "vendor")
-    private List<VendorPerformanceScore> performanceScores = new ArrayList<>();
+    @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
+    private List<DeliveryEvaluation> deliveryEvaluations = new ArrayList<>();
 
     public Vendor() {
     }
@@ -55,12 +53,8 @@ public class Vendor {
         return active;
     }
 
-    public List<DeliveryEvaluation> getEvaluations() {
-        return evaluations;
-    }
-
-    public List<VendorPerformanceScore> getPerformanceScores() {
-        return performanceScores;
+    public List<DeliveryEvaluation> getDeliveryEvaluations() {
+        return deliveryEvaluations;
     }
 
     public void setId(Long id) {
@@ -83,11 +77,7 @@ public class Vendor {
         this.active = active;
     }
 
-    public void setEvaluations(List<DeliveryEvaluation> evaluations) {
-        this.evaluations = evaluations;
-    }
-
-    public void setPerformanceScores(List<VendorPerformanceScore> performanceScores) {
-        this.performanceScores = performanceScores;
+    public void setDeliveryEvaluations(List<DeliveryEvaluation> deliveryEvaluations) {
+        this.deliveryEvaluations = deliveryEvaluations;
     }
 }

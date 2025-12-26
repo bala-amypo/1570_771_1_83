@@ -16,12 +16,15 @@ public class SLARequirement {
     private String requirementName;
 
     private String description;
+
     private Integer maxDeliveryDays;
+
     private Double minQualityScore;
+
     private Boolean active = true;
 
-    @OneToMany(mappedBy = "slaRequirement")
-    private List<DeliveryEvaluation> evaluations = new ArrayList<>();
+    @OneToMany(mappedBy = "slaRequirement", cascade = CascadeType.ALL)
+    private List<DeliveryEvaluation> deliveryEvaluations = new ArrayList<>();
 
     public SLARequirement() {
     }
@@ -59,8 +62,8 @@ public class SLARequirement {
         return active;
     }
 
-    public List<DeliveryEvaluation> getEvaluations() {
-        return evaluations;
+    public List<DeliveryEvaluation> getDeliveryEvaluations() {
+        return deliveryEvaluations;
     }
 
     public void setId(Long id) {
@@ -87,7 +90,7 @@ public class SLARequirement {
         this.active = active;
     }
 
-    public void setEvaluations(List<DeliveryEvaluation> evaluations) {
-        this.evaluations = evaluations;
+    public void setDeliveryEvaluations(List<DeliveryEvaluation> deliveryEvaluations) {
+        this.deliveryEvaluations = deliveryEvaluations;
     }
 }
