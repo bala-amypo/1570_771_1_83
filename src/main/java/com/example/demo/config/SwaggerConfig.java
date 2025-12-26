@@ -16,18 +16,15 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                // API metadata
                 .info(new Info()
                         .title("Vendor SLA Performance Tracker API")
                         .version("1.0")
                         .description("Vendor SLA Performance Tracker with JWT Security"))
 
-                // Server configuration
                 .servers(List.of(
                         new Server().url("https://9094.pro604cr.amypo.ai")
                 ))
 
-                // JWT Bearer security scheme
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",
                                 new SecurityScheme()

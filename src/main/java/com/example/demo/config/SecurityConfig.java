@@ -38,7 +38,6 @@ public class SecurityConfig {
                         "/v3/api-docs/**"
                 ).permitAll()
 
-                // 🔒 EVERYTHING ELSE NEEDS JWT
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter,
